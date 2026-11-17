@@ -21,11 +21,11 @@ const Wiki = (() => {
     });
   }
 
-  /* ---------- contents: sidebar on wide screens, box on narrow ---------- */
+  /* ---------- contents: in the sidebar on wide screens, a box on narrow ---------- */
   function setupToc() {
     const toc = document.getElementById("toc");
-    const aside = document.getElementById("page-aside");
-    if (!toc) { if (aside) aside.remove(); return; }
+    const slot = document.getElementById("sidebar-toc");
+    if (!toc || !slot) return;
 
     const btn = toc.querySelector(".toctoggle");
     btn.addEventListener("click", () => {
@@ -35,45 +35,36 @@ const Wiki = (() => {
 
     const wide = window.matchMedia("(min-width: 1000px)");
     const place = () => {
-      if (wide.matches) aside.appendChild(toc);
+      if (wide.matches) slot.appendChild(toc);
       else {
         const firstH2 = document.querySelector(".mw-body-content > h2");
         if (firstH2) firstH2.before(toc);
       }
-      document.body.classList.toggle("has-aside", wide.matches);
     };
     place();
     wide.addEventListener("change", place);
 
-    // highlight the section currently on screen
+    // bold the section currently on screen
     const links = [...toc.querySelectorAll("a")];
     const targets = links
       .map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1))))
       .filter(Boolean);
     const onScroll = () => {
       let current = targets[0];
-      for (const t of targets) if (t.getBoundingClientRect().top < 120) current = t;
-      links.forEach((a) => a.classList.toggle("current", current && a.hash === "#" + current.id));
+      for (const t of targets) if (t.getBoundingClientRect().top < 100) current = t;
+      links.forEach((a) => a.classList.toggle("current", !!current && a.hash === "#" + current.id));
     };
     document.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   }
 
-  /* ---------- breadcrumbs: Home › Category › Page ---------- */
-  function setupCrumbs() {
-    const crumbs = document.getElementById("crumbs");
-    const h1 = document.querySelector("h1.firstHeading");
-    if (!crumbs || !h1) return;
-    const firstCat = document.querySelector("#catlinks a[href*='/category/']");
-    if (firstCat) {
-      const li = document.createElement("li");
-      li.appendChild(firstCat.cloneNode(true));
-      crumbs.appendChild(li);
-    }
-    const here = document.createElement("li");
-    here.setAttribute("aria-current", "page");
-    here.textContent = h1.textContent.replace(/^Category:\s*/, "");
-    crumbs.appendChild(here);
+  /* ---------- Article / View source tabs go under the title ---------- */
+  function setupTabs() {
+    const tabs = document.getElementById("tabs");
+    const bar = document.getElementById("title-bar");
+    if (!tabs || !bar || !tabs.textContent.trim()) return;
+    while (tabs.firstChild) bar.appendChild(tabs.firstChild);
+    tabs.remove();
   }
 
   /* ---------- search ---------- */
@@ -173,19 +164,32 @@ const Wiki = (() => {
     location.replace(link(p));
   }
 
-  /* ---------- mobile menu ---------- */
+  /* ---------- ☰ main menu ---------- */
+  // Wide screens: on article pages the menu folds away so the contents list
+  // has the sidebar (like current Wikipedia); ☰ shows/hides it.
+  // Narrow screens: ☰ opens the menu as a drop-down.
   function setupMenu() {
     const btn = document.getElementById("menu-toggle");
-    if (btn) btn.addEventListener("click", () => {
-      const open = document.body.classList.toggle("menu-open");
-      btn.setAttribute("aria-expanded", open);
+    if (!btn) return;
+    const wide = window.matchMedia("(min-width: 1000px)");
+    if (document.getElementById("toc")) document.body.classList.add("menu-closed");
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const cls = wide.matches ? "menu-closed" : "menu-open";
+      const nowOpen = wide.matches
+        ? !document.body.classList.toggle(cls)
+        : document.body.classList.toggle(cls);
+      btn.setAttribute("aria-expanded", nowOpen);
+    });
+    document.addEventListener("click", (e) => {
+      if (!wide.matches && !e.target.closest("#sidebar")) document.body.classList.remove("menu-open");
     });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     renderMath();
     setupToc();
-    setupCrumbs();
+    setupTabs();
     setupSuggestions();
     setupMenu();
   });

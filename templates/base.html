@@ -16,63 +16,59 @@
 {{ extra_head }}
 </head>
 <body>
+<div class="page">
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <button id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
-    <a class="brand" href="{{ root }}/" title="Main page">
-      <img src="{{ root }}/static/logo.svg" alt="" width="40" height="40">
+  <header class="header">
+    <button id="menu-toggle" type="button" aria-label="Main menu" aria-expanded="false">
+      <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M1 4h18M1 10h18M1 16h18" stroke="currentColor" stroke-width="2"/></svg>
+    </button>
+    <a class="brand" href="{{ root }}/" title="Visit the main page">
+      <img src="{{ root }}/static/logo.svg" alt="" width="44" height="44">
       <span class="brand-text">
         <span class="brand-name">{{ site_name }}</span>
         <span class="brand-tagline">{{ tagline }}</span>
       </span>
     </a>
     <form id="searchform" action="{{ root }}/search/" role="search" autocomplete="off">
-      <input id="searchInput" type="search" name="q" placeholder="Search articles, reagents, reactions…" aria-label="Search">
-      <button type="submit" aria-label="Search">
-        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6" fill="none" stroke="currentColor" stroke-width="2"/><line x1="13" y1="13" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
+      <input id="searchInput" type="search" name="q" placeholder="Search {{ site_name }}" aria-label="Search">
+      <button type="submit">Search</button>
       <ul id="suggestions" hidden></ul>
     </form>
-  </div>
-  <nav class="navstrip" id="navstrip" aria-label="Site">
-    <div class="navstrip-inner">
-      <a href="{{ root }}/">Main page</a>
-      <a href="{{ root }}/special/all-pages/">All articles</a>
-      <a href="{{ root }}/special/categories/">Categories</a>
-      <a href="{{ root }}/category/reagents/">Reagents</a>
-      <a href="{{ root }}/special/random/">Random article</a>
-      <a class="nav-help" href="{{ root }}/wiki/writing-articles/">Help</a>
-    </div>
-  </nav>
-</header>
+  </header>
 
-<div class="layout">
-  <aside id="page-aside" aria-label="On this page"></aside>
-  <main id="main">
-    <div class="pagebar">
-      <ol class="crumbs" id="crumbs"><li><a href="{{ root }}/">Home</a></li></ol>
-      <div id="tabs">{{ tabs }}</div>
-    </div>
-    <article id="content" class="mw-body">
-      {{ content }}
-    </article>
-  </main>
+  <div class="page-columns">
+    <aside class="sidebar" id="sidebar">
+      <nav class="portal" id="main-menu" aria-label="Main menu">
+        <h3>Main menu</h3>
+        <ul>
+          <li><a href="{{ root }}/">Main page</a></li>
+          <li><a href="{{ root }}/special/all-pages/">All articles</a></li>
+          <li><a href="{{ root }}/special/categories/">Categories</a></li>
+          <li><a href="{{ root }}/category/reagents/">Reagents</a></li>
+          <li><a href="{{ root }}/special/random/">Random article</a></li>
+        </ul>
+        <h3>Contribute</h3>
+        <ul>
+          <li><a href="{{ root }}/wiki/writing-articles/">Help: writing articles</a></li>
+        </ul>
+      </nav>
+      <div id="sidebar-toc"></div>
+    </aside>
+
+    <main class="main" id="main">
+      <div id="content" class="mw-body">
+        {{ content }}
+      </div>
+      <div id="tabs" hidden>{{ tabs }}</div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>{{ footer_text }}</p>
+    <p>&copy; {{ year }} {{ site_name }} ·
+      <a href="{{ root }}/special/all-pages/">All articles</a> ·
+      <a href="{{ root }}/wiki/writing-articles/">Writing articles</a></p>
+  </footer>
 </div>
-
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div>
-      <strong>{{ site_name }}</strong><br>
-      <span>{{ tagline }}</span>
-    </div>
-    <div class="footer-links">
-      <a href="{{ root }}/special/all-pages/">All articles</a>
-      <a href="{{ root }}/special/categories/">Categories</a>
-      <a href="{{ root }}/wiki/writing-articles/">Writing articles</a>
-    </div>
-    <p class="footer-small">{{ footer_text }} &copy; {{ year }} {{ site_name }}</p>
-  </div>
-</footer>
 </body>
 </html>

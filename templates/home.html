@@ -1,28 +1,24 @@
 <div class="mainpage">
-  <section class="hero">
-    <h1>Welcome to {{ site_name }}</h1>
-    <p class="hero-sub">{{ tagline }} · <b>{{ count }}</b> articles</p>
-    <form class="hero-search" action="{{ root }}/search/" role="search">
-      <input type="search" name="q" placeholder="Search for a reagent, reaction or topic" aria-label="Search">
-      <button type="submit">Search</button>
-    </form>
-  </section>
-
+  <div id="mp-welcome">
+    <h1>Welcome to <a href="{{ root }}/">{{ site_name }}</a>,</h1>
+    <p>{{ tagline }} that anyone can learn from.<br><b>{{ count }}</b> articles so far.</p>
+  </div>
   <div class="mp-intro">{{ intro }}</div>
-
-  <div class="mp-grid">
-    <section class="card card-featured">
-      <h2 class="card-title">Featured article: {{ featured_title }}</h2>
-      <div class="card-body">{{ featured }}</div>
+  <div class="mp-columns">
+    <section class="mp-box mp-featured">
+      <h2>From today's featured article</h2>
+      <div class="mp-box-body">
+        <h3>{{ featured_title }}</h3>
+        {{ featured }}
+      </div>
     </section>
-    <section class="card card-recent">
-      <h2 class="card-title">Recently updated</h2>
-      <div class="card-body"><ul class="plain-list">{{ recent }}</ul></div>
+    <section class="mp-box mp-recent">
+      <h2>Recently updated</h2>
+      <div class="mp-box-body"><ul>{{ recent }}</ul></div>
     </section>
   </div>
-
-  <section class="card card-cats">
-    <h2 class="card-title">Browse by category</h2>
-    <div class="card-body"><ul class="chip-list">{{ categories }}</ul></div>
+  <section class="mp-box mp-cats">
+    <h2>Browse by category</h2>
+    <div class="mp-box-body"><ul class="columns">{{ categories }}</ul></div>
   </section>
 </div>
