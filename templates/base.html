@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} — {{ site_name }}</title>
+<meta name="description" content="{{ description }}">
+{{ canonical }}
+<link rel="icon" href="{{ root }}/static/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="{{ root }}/static/katex/katex.min.css">
+<link rel="stylesheet" href="{{ root }}/static/style.css">
+<script defer src="{{ root }}/static/katex/katex.min.js"></script>
+<script defer src="{{ root }}/static/katex/mhchem.min.js"></script>
+<script>window.WIKI_ROOT = "{{ root }}";</script>
+<script defer src="{{ root }}/static/wiki.js"></script>
+{{ extra_head }}
+</head>
+<body>
+<div id="page">
+
+  <header id="header">
+    <button id="menu-toggle" type="button" aria-label="Open menu">☰</button>
+    <a id="logo" href="{{ root }}/" title="Visit the main page">
+      <img src="{{ root }}/static/logo.svg" alt="" width="50" height="50">
+      <span class="wordmark"><span class="name">{{ site_name }}</span><span class="tagline">{{ tagline }}</span></span>
+    </a>
+    <form id="searchform" action="{{ root }}/search/" role="search" autocomplete="off">
+      <input id="searchInput" type="search" name="q" placeholder="Search {{ site_name }}" aria-label="Search">
+      <button type="submit">Search</button>
+      <ul id="suggestions" hidden></ul>
+    </form>
+  </header>
+
+  <nav id="sidebar" aria-label="Site">
+    <div class="portal">
+      <ul>
+        <li><a href="{{ root }}/">Main page</a></li>
+        <li><a href="{{ root }}/special/all-pages/">All articles</a></li>
+        <li><a href="{{ root }}/special/categories/">Categories</a></li>
+        <li><a href="{{ root }}/special/random/">Random article</a></li>
+      </ul>
+    </div>
+    <div class="portal">
+      <h3>Contribute</h3>
+      <ul>
+        <li><a href="{{ root }}/wiki/writing-articles/">Help: writing articles</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="content-wrap">
+    <div id="tabs">{{ tabs }}</div>
+    <div id="content" class="mw-body">
+      {{ content }}
+    </div>
+  </main>
+
+  <footer id="footer">
+    <p>{{ footer_text }}</p>
+    <p>&copy; {{ year }} {{ site_name }}</p>
+  </footer>
+</div>
+</body>
+</html>
