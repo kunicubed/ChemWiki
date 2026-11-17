@@ -1,12 +1,8 @@
 ---
-title: 
+title: Enthalpy
 summary: Enthalpy is the sum of a thermodynamic system's internal energy and the product of its pressure and volume. It encompasses all forms of the system's energy.
 categories: [Physical Chemistry, Thermodynamics]
 updated: 2026-11-17
-infobox:
-    image:
-    caption:
-    rows:
 ---
 
 **Enthalpy** is defined as the sum of the internal energy and the product of pressure and volume of a thermodynamic system. The internal energy is a measure of the energy of a thermodynamic system usually in the abscence of effects from external fields and excludes kinetic energy, while the PV term describes the pressure-volume work being done in the system. It is important, when considering enthalpy, to consider what **energy actually is**. Energy is the capacity of a system to do work, therefore enthalpy is a measure of all the different ways a system can and does do work.
