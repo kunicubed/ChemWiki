@@ -1,7 +1,6 @@
 # ChemWiki
 
-An encyclopedia-style chemistry website. You write articles in Markdown with
-LaTeX maths, and `build.py` turns them into a static site you can host for free.
+An encyclopedia-style chemistry website. 
 
 ## Quick start
 
