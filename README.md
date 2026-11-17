@@ -35,19 +35,3 @@ Copy an existing article and edit it. The full syntax guide is the
 - Links to other articles: `[[Benzene]]` or `[[Chemical equilibrium|equilibrium]]`
 - References: `[^1]` in the text, then `[^1]: Source...` at the bottom
 
-## Publishing on your own domain
-
-1. Push this folder to a GitHub repository.
-2. Pick a host:
-   - **GitHub Pages**: Settings → Pages → Source: *GitHub Actions*. The included
-     workflow builds and deploys on every push. Add your domain under Settings → Pages.
-   - **Netlify / Cloudflare Pages**: build command
-     `pip install -r requirements.txt && python build.py`, output directory `site`.
-3. Add the DNS records your host gives you in Wix (Domains → Manage DNS records).
-4. Set `site_url` in `config.yml` to your real domain so `sitemap.xml` is correct.
-
-## Getting on Google
-
-1. Add your domain in Google Search Console and verify it with the DNS TXT record.
-2. Submit `https://yourdomain.com/sitemap.xml`.
-3. Use URL Inspection → Request indexing on the home page.
