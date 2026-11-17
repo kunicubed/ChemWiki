@@ -99,7 +99,4 @@ $\ce{HNO3 + 2H2SO4 <=> NO2+ + H3O+ + 2HSO4-}$.
 
 ## See also
 
-- [[Chemical equilibrium]]
-- [[Particle in a box]], a simple model for π electrons in conjugated molecules
-
 [^clayden]: J. Clayden, N. Greeves and S. Warren, *Organic Chemistry*, 2nd edn, Oxford University Press, 2012, ch. 7.
