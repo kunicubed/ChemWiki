@@ -1,6 +1,6 @@
 # ChemWiki
 
-An encyclopedia-style chemistry website. 
+An encyclopedia-style chemistry website. (build.py TOTALLY not AI)
 
 ## Quick start
 
