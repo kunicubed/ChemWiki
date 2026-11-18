@@ -40,6 +40,7 @@ const Wiki = (() => {
         const firstH2 = document.querySelector(".mw-body-content > h2");
         if (firstH2) firstH2.before(toc);
       }
+      document.body.classList.toggle("has-toc", wide.matches);
     };
     place();
     wide.addEventListener("change", place);
@@ -164,25 +165,31 @@ const Wiki = (() => {
     location.replace(link(p));
   }
 
-  /* ---------- ☰ main menu ---------- */
-  // Wide screens: on article pages the menu folds away so the contents list
-  // has the sidebar (like current Wikipedia); ☰ shows/hides it.
-  // Narrow screens: ☰ opens the menu as a drop-down.
+  /* ---------- breadcrumbs: Home › Category › Page ---------- */
+  function setupCrumbs() {
+    const crumbs = document.getElementById("crumbs");
+    const h1 = document.querySelector("h1.firstHeading");
+    if (!crumbs) return;
+    if (!h1) { crumbs.remove(); return; }
+    const firstCat = document.querySelector("#catlinks a[href*='/category/']");
+    if (firstCat) {
+      const li = document.createElement("li");
+      li.appendChild(firstCat.cloneNode(true));
+      crumbs.appendChild(li);
+    }
+    const here = document.createElement("li");
+    here.setAttribute("aria-current", "page");
+    here.textContent = h1.textContent.replace(/^Category:\s*/, "");
+    crumbs.appendChild(here);
+  }
+
+  /* ---------- ☰ opens the navigation on small screens ---------- */
   function setupMenu() {
     const btn = document.getElementById("menu-toggle");
     if (!btn) return;
-    const wide = window.matchMedia("(min-width: 1000px)");
-    if (document.getElementById("toc")) document.body.classList.add("menu-closed");
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const cls = wide.matches ? "menu-closed" : "menu-open";
-      const nowOpen = wide.matches
-        ? !document.body.classList.toggle(cls)
-        : document.body.classList.toggle(cls);
-      btn.setAttribute("aria-expanded", nowOpen);
-    });
-    document.addEventListener("click", (e) => {
-      if (!wide.matches && !e.target.closest("#sidebar")) document.body.classList.remove("menu-open");
+    btn.addEventListener("click", () => {
+      const open = document.body.classList.toggle("menu-open");
+      btn.setAttribute("aria-expanded", open);
     });
   }
 
@@ -190,6 +197,7 @@ const Wiki = (() => {
     renderMath();
     setupToc();
     setupTabs();
+    setupCrumbs();
     setupSuggestions();
     setupMenu();
   });
